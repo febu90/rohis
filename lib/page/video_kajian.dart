@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rohisapp/page/video_kajian_detail.dart';
 
 class VideoKajian extends StatefulWidget {
   @override
@@ -68,19 +69,28 @@ class _VideoKajianState extends State<VideoKajian> {
                               Padding(
                                 padding: EdgeInsets.only(bottom: 10.0),
                               ),
-                              Container(
-                                alignment: Alignment.bottomRight,
-                                width: 60.0,
-                                padding: EdgeInsets.all(10.0),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(0, 185, 92, 1),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(80.0)),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Baca",
-                                    style: TextStyle(color: Colors.white),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                          .push(new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            new VideoKajianDetail(),
+                                      ));
+                                },
+                                child: Container(
+                                  alignment: Alignment.bottomRight,
+                                  width: 80.0,
+                                  padding: EdgeInsets.all(10.0),
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(0, 185, 92, 1),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(80.0)),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      "Tonton",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               )

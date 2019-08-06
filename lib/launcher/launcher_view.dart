@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:onesignal/onesignal.dart';
+import 'package:rohisapp/page/amalan_harian.dart';
 import 'package:rohisapp/page/artikel.dart';
 import 'package:rohisapp/page/home.dart';
+import 'package:rohisapp/page/jadwal_shalat.dart';
 import 'package:rohisapp/page/login.dart';
+import 'package:rohisapp/page/video_kajian.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LauncherPage extends StatefulWidget {
@@ -37,7 +40,7 @@ class _LauncherPageState extends State<LauncherPage> {
     return new Timer(duration, () {
       Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (_) {
         if (islogin == false) {
-          return new Artikel();
+          return new AmalanHarian();
         } else {
           return new Home();
         }

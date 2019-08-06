@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:rohisapp/page/artikel_detail.dart';
 
 class Artikel extends StatefulWidget {
   @override
@@ -8,7 +9,7 @@ class Artikel extends StatefulWidget {
 }
 
 class _ArtikelState extends State<Artikel> {
-  static double _minHeight = 80, _maxHeight = 450;
+  static double _minHeight = 130, _maxHeight = 280;
   Offset _offset = Offset(0, _minHeight);
   bool _isOpen = false;
   @override
@@ -35,7 +36,7 @@ class _ArtikelState extends State<Artikel> {
             ),
           ),
           Align(
-                      child: Padding(
+            child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: <Widget>[
@@ -74,19 +75,31 @@ class _ArtikelState extends State<Artikel> {
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 10.0),
                                 ),
-                                Container(
-                                  alignment: Alignment.bottomRight,
-                                  width: 60.0,
-                                  padding: EdgeInsets.all(10.0),
-                                  decoration: BoxDecoration(
-                                    color: Color.fromRGBO(0, 185, 92, 1),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(80.0)),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      "Baca",
-                                      style: TextStyle(color: Colors.white),
+                                Hero(
+                                  tag: "artikel1",
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .push(new MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            new ArtikelDetail(),
+                                      ));
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.bottomRight,
+                                      width: 60.0,
+                                      padding: EdgeInsets.all(10.0),
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(0, 185, 92, 1),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(80.0)),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Baca",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 )
@@ -103,7 +116,7 @@ class _ArtikelState extends State<Artikel> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 10.0,right: 10.0),
+            padding: const EdgeInsets.only(left: 10.0, right: 10.0),
             child: GestureDetector(
               onPanUpdate: (details) {
                 _offset = Offset(0, _offset.dy - details.delta.dy);
@@ -117,25 +130,73 @@ class _ArtikelState extends State<Artikel> {
                 setState(() {});
               },
               child: AnimatedContainer(
+                padding: EdgeInsets.all(10.0),
                 duration: Duration.zero,
                 curve: Curves.easeOut,
                 height: _offset.dy,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
+                  ),
+                  boxShadow: <BoxShadow>[
+                    new BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 20.0,
+                      offset: new Offset(0.0, 10.0),
                     ),
-                    boxShadow: <BoxShadow>[
-                          new BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 20.0,
-                            offset: new Offset(0.0, 10.0),
-                          ),
-                        ],
-                      ),
-                child: Text("This is my Bottom sheet"),
+                  ],
+                ),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              "img/doadzikir.png",
+                              height: 50.0,
+                            ),
+                            Text("Dzikir & Doa")
+                          ],
+                        ),
+                        Padding(padding: EdgeInsets.only(left: 10.0)),
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              "img/doadzikir.png",
+                              height: 50.0,
+                            ),
+                            Text("Kalender\nHijriah")
+                          ],
+                        ),
+                        Padding(padding: EdgeInsets.only(left: 10.0)),
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              "img/doadzikir.png",
+                              height: 50.0,
+                            ),
+                            Text("Kiblat")
+                          ],
+                        ),
+                        Padding(padding: EdgeInsets.only(left: 10.0)),
+                        Column(
+                          children: <Widget>[
+                            Image.asset(
+                              "img/doadzikir.png",
+                              height: 50.0,
+                            ),
+                            Text("Amalan Harian")
+                          ],
+                        )
+                      ],
+                    ),
+                    _iconLain(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -144,25 +205,53 @@ class _ArtikelState extends State<Artikel> {
     );
   }
 
-  void _handleClick() {
-    _isOpen = !_isOpen;
-    Timer.periodic(Duration(milliseconds: 5), (timer) {
-      if (_isOpen) {
-        double value = _offset.dy + 10; // we increment the height of the Container by 10 every 5ms 
-        _offset = Offset(0, value);
-        if (_offset.dy > _maxHeight) {
-          _offset = Offset(0, _maxHeight); // makes sure it does't go above maxHeight
-          timer.cancel();
-        }
-      } else {
-        double value = _offset.dy - 10; // we decrement the height by 10 here
-        _offset = Offset(0, value);
-        if (_offset.dy < _minHeight) {
-          _offset = Offset(0, _minHeight); // makes sure it doesn't go beyond minHeight
-          timer.cancel();
-        }
-      }
-      setState(() {});
-    });
+  Widget _iconLain() {
+    if (_isOpen == true) {
+      return Row(
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Image.asset(
+                "img/doadzikir.png",
+                height: 50.0,
+              ),
+              Text("Dzikir & Doa")
+            ],
+          ),
+          Padding(padding: EdgeInsets.only(left: 10.0)),
+          Column(
+            children: <Widget>[
+              Image.asset(
+                "img/doadzikir.png",
+                height: 50.0,
+              ),
+              Text("Kalender\nHijriah")
+            ],
+          ),
+          Padding(padding: EdgeInsets.only(left: 10.0)),
+          Column(
+            children: <Widget>[
+              Image.asset(
+                "img/doadzikir.png",
+                height: 50.0,
+              ),
+              Text("Kiblat")
+            ],
+          ),
+          Padding(padding: EdgeInsets.only(left: 10.0)),
+          Column(
+            children: <Widget>[
+              Image.asset(
+                "img/doadzikir.png",
+                height: 50.0,
+              ),
+              Text("Amalan Harian")
+            ],
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 }
