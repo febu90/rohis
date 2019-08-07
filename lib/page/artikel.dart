@@ -207,6 +207,7 @@ class _ArtikelState extends State<Artikel> {
 
   Widget _iconLain() {
     if (_isOpen == true) {
+      if(_offset.dy > 200){
       return Row(
         children: <Widget>[
           Column(
@@ -250,6 +251,9 @@ class _ArtikelState extends State<Artikel> {
           )
         ],
       );
+      }else{
+        return Container();
+      }
     } else {
       return Container();
     }

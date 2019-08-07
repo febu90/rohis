@@ -40,7 +40,7 @@ class _LauncherPageState extends State<LauncherPage> {
     return new Timer(duration, () {
       Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (_) {
         if (islogin == false) {
-          return new AmalanHarian();
+          return new Artikel();
         } else {
           return new Home();
         }
